@@ -7,13 +7,21 @@ defmodule ListOps do
   # automatically imported) and so shouldn't be used either.
 
   @spec count(list) :: non_neg_integer
-  def count(l) do
-
+  def count(list, counter \\ 0)
+  def count([], counter), do: counter
+  def count(list, counter) do
+    [_|tail] = list
+    count(tail, counter + 1)
   end
 
   @spec reverse(list) :: list
-  def reverse(l) do
 
+  def reverse(l, reversed_list \\ [])
+  def reverse([], reversed_list), do: reversed_list
+  def reverse(l, reversed_list) do
+    [h|t] = l
+    head = [h]
+    reversed_list = [reverse(t)|head]
   end
 
   @spec map(list, (any -> any)) :: list
