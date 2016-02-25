@@ -22,30 +22,21 @@ insert into Employee (id, salary) values (3, 300);
 insert into Employee (id, salary) values (4, 400);
 
 
--- delimiter //
--- CREATE FUNCTION getNthHighestSalary(N INT) RETURNS INT
--- BEGIN
---   RETURN (
---       # Write your MySQL query statement below.
---       select salary
---       from Employee
---       group by salary
---       union all (select null as salary) # forces the final value to be nil
---       order by salary desc
---       limit 1
---       offset 1
---   );
--- END
--- //
--- delimiter ;
-
-select salary
-from Employee
-group by salary
-union all (select null as salary) # forces the final value to be nil
-order by salary desc
-limit 1
-offset 3;
+CREATE FUNCTION getNthHighestSalary(N INT) RETURNS INT
+BEGIN
+declare decn int;
+set decn = N - 1;
+  RETURN (
+      # Write your MySQL query statement below.
+    select salary
+    from Employee
+    group by salary
+    union all (select null as salary) # forces the final value to be nil
+    order by salary desc
+    limit 1
+    offset decn
+  );
+END
 
 
 

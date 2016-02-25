@@ -36,24 +36,8 @@ insert into Logs (id, num) values (3, 1);
 
 
 # Write your MySQL query statement below
--- explain extended
--- select l1.num
-select *
-from Logs as l1
--- inner join Logs as l2 on (l2.id = l1.id + 1 and l1.num = l2.num)
--- inner join Logs as l3 on (l2.id + 1 = l3.id and l3.num = l2.num)
--- inner join Logs as l2 on (l2.num = l1.num)
--- inner join Logs as l3 on (l3.num = l2.num)
--- where l3.id - l2.id - l1.id = 0
--- where l1.num = l2.num
--- group by num
--- having l1.num = l2.num = l3.num
--- and max(l3.id) - min(l1.id) >= 2
--- and l3.id - l2.id = 1
--- and l2.id - l1.id = 1;
-;
-
 select distinct l1.num
 from Logs as l1
 inner join Logs as l2 on (l2.id = l1.id + 1 and l1.num = l2.num)
-inner join Logs as l3 on (l2.id + 1 = l3.id and l3.num = l2.num);
+inner join Logs as l3 on (l2.id + 1 = l3.id and l3.num = l2.num)
+;
