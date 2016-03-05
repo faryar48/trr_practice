@@ -24,6 +24,16 @@
 -- | 3.50  | 4    |
 -- +-------+------+
 
+-- TEMP
+-- +-------+
+-- | Score |
+-- +-------+
+-- | 4.00  |
+-- | 3.85  |
+-- | 3.65  |
+-- | 3.50  |
+-- +-------+
+
 drop database if exists test;
 create database test;
 use test;
@@ -37,47 +47,27 @@ insert into Scores values (4, 3.85);
 insert into Scores values (5, 4.00);
 insert into Scores values (6, 3.65);
 
--- select s1.score as Score, rankstable.rank
--- from Scores as s1, (
---   select count(distinct s2.score) as rank, s2.score as score
---   from Scores as s2
---   inner join Scores as s1
---   where s2.score < s1.score
---   order by s2.score desc
---   ) as rankstable
--- -- where s1.score = rankstable.score
--- -- inner join rankstable on (s1.score = rankstable.score)
--- order by s1.score desc
--- ;
-
-select s1.score, (
+# too slow
+select s1.score as Score, (
   select count(distinct s2.score)+1 as Rank
   from Scores as s2
   where s2.score > s1.score
-  group by s2.score
 ) as Rank
 from Scores as s1, Scores as s2
 group by s1.id
 order by s1.score desc
 ;
 
--- select *, s1.score, count(distinct s2.score) as Rank
--- from Scores as s1, Scores as s2
--- where s2.score > s1.score
--- group by s1.id
--- order by s1.score desc
--- ;
-
--- SELECT T2.Score Score,
--- (SELECT COUNT(*) + 1
---   FROM (
---     SELECT T1.Score
---     FROM Scores as T1
---     GROUP BY Score
---     ORDER BY Score DESC) as TEMP
---   WHERE T2.Score < TEMP.Score) Rank
--- FROM Scores T2
--- ORDER BY Score DESC;
+SELECT T2.Score Score,
+(SELECT COUNT(*) + 1
+  FROM (
+    SELECT T1.Score
+    FROM Scores as T1
+    GROUP BY Score
+    ORDER BY Score DESC) as TEMP
+  WHERE T2.Score < TEMP.Score) Rank
+FROM Scores T2
+ORDER BY Score DESC;
 
 
 

@@ -67,26 +67,26 @@ insert into Users values (11, "No", "driver");
 insert into Users values (12, "No", "driver");
 insert into Users values (13, "No", "driver");
 
-select t.request_at as Day, count(t.status) as Completed
-from Trips as t
-inner join Users as u on (u.Users_Id = t.Client_Id)
-where t.status = "completed"
-and u.banned = "No"
-and u.role = "client"
-and t.request_at >= "2013-10-01"
-and t.request_at <= "2013-10-03"
-group by t.request_at
-;
+-- select t.request_at as Day, count(t.status) as Completed
+-- from Trips as t
+-- inner join Users as u on (u.Users_Id = t.Client_Id)
+-- where t.status = "completed"
+-- and u.banned = "No"
+-- and u.role = "client"
+-- and t.request_at >= "2013-10-01"
+-- and t.request_at <= "2013-10-03"
+-- group by t.request_at
+-- ;
 
-select t.request_at as Day, count(t.status) as Total
-from Trips as t
-inner join Users as u on (u.Users_Id = t.Client_Id)
-and u.banned = "No"
-and u.role = "client"
-and t.request_at >= "2013-10-01"
-and t.request_at <= "2013-10-03"
-group by t.request_at
-;
+-- select t.request_at as Day, count(t.status) as Total
+-- from Trips as t
+-- inner join Users as u on (u.Users_Id = t.Client_Id)
+-- and u.banned = "No"
+-- and u.role = "client"
+-- and t.request_at >= "2013-10-01"
+-- and t.request_at <= "2013-10-03"
+-- group by t.request_at
+-- ;
 
 select t.request_at as Day, round(((count(nullif(t.status, "completed"))) / (count(t.status))), 2) as "Cancellation Rate"
 from Trips as t
