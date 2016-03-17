@@ -1,0 +1,3 @@
+Answer was corrent!!!!
+Alice now has 5 Gold Coins.
+Player is now Bob
