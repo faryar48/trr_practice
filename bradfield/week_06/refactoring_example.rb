@@ -37,12 +37,12 @@ class CorrectAnswerBehavior
         puts "#{@players[@current_player_index]} now has #{@purses[@current_player_index]} Gold Coins."
         winner = did_player_win()
         rotate_current_player()
-        puts "Player is now #{@players[@current_player_index]}"
+        report_current_player()
         winner
       else
         puts "#{@players[@current_player_index]} stays in penalty box"
         rotate_current_player()
-        puts "Player is now #{@players[@current_player_index]}"
+        report_current_player()
         true
       end
     else
@@ -51,7 +51,7 @@ class CorrectAnswerBehavior
       puts "#{@players[@current_player_index]} now has #{@purses[@current_player_index]} Gold Coins."
       winner = did_player_win()
       rotate_current_player()
-      puts "Player is now #{@players[@current_player_index]}"
+      report_current_player()
       return winner
     end
   end
@@ -65,6 +65,10 @@ class CorrectAnswerBehavior
   def rotate_current_player
     @current_player_index += 1
     @current_player_index = 0 if @current_player_index == @players.length
+  end
+
+  def report_current_player
+    puts "Player is now #{@players[@current_player_index]}"
   end
 
 # ------------------------------ REFACTORING END ------------------------------
