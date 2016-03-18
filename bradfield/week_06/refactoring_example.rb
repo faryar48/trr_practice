@@ -29,31 +29,32 @@
 class CorrectAnswerBehavior
 
   def was_correctly_answered
-    if @in_penalty_box[@current_player_index]
-      if @is_getting_out_of_penalty_box
-        puts "#{@players[@current_player_index]} got out of penalty box"
-        puts 'Answer was correct!!!!'
-        @purses[@current_player_index] += 1
-        puts "#{@players[@current_player_index]} now has #{@purses[@current_player_index]} Gold Coins."
-        winner = did_player_win()
-        rotate_current_player()
-        report_current_player()
-        winner
-      else
-        puts "#{@players[@current_player_index]} stays in penalty box"
-        rotate_current_player()
-        report_current_player()
-        true
-      end
-    else
-      puts "Answer was corrent!!!!"
+
+    if @is_getting_out_of_penalty_box
+      puts "#{@players[@current_player_index]} got out of penalty box"
+      puts 'Answer was correct!!!!'
       @purses[@current_player_index] += 1
-      puts "#{@players[@current_player_index]} now has #{@purses[@current_player_index]} Gold Coins."
+      report_gold_coins()
       winner = did_player_win()
       rotate_current_player()
       report_current_player()
       return winner
     end
+
+    if @in_penalty_box[@current_player_index]
+      puts "#{@players[@current_player_index]} stays in penalty box"
+      rotate_current_player()
+      report_current_player()
+      return true
+    end
+
+    puts "Answer was corrent!!!!"
+    @purses[@current_player_index] += 1
+    report_gold_coins()
+    winner = did_player_win()
+    rotate_current_player()
+    report_current_player()
+    return winner
   end
 
   private
@@ -69,6 +70,10 @@ class CorrectAnswerBehavior
 
   def report_current_player
     puts "Player is now #{@players[@current_player_index]}"
+  end
+
+  def report_gold_coins
+    puts "#{@players[@current_player_index]} now has #{@purses[@current_player_index]} Gold Coins."
   end
 
 # ------------------------------ REFACTORING END ------------------------------
