@@ -1,20 +1,45 @@
+require 'pry'
+
 module Graph
 
   def self.breadth_first_path(from_id, to_id, edge_list)
     return [] if edge_list.empty?
     adjacency_list = self.edge_to_adjacency_list(edge_list)
-    # find short path
 
-    # check array of nodes for from_id to see if it contains the to_id
-    # if it does, return the path
-    # if not, check the first node in the from_id's array to see if their array contains the to_id
+    queue = [from_id]
+    visited = {from_id => nil}
 
-    # clues
-      # maintain a queue
-      # queue of paths
-      # first item in the path includes the from_id ex: [1]
-      # then de-queue, add neighbors to path (if it satisfies to_id, return path, if not, de-queue and keep going through while loop)
-      # need a visited queue as well so you don't iterate over the same numbers
+    while !queue.empty?
+      new_node = queue.shift
+      neighbors = adjacency_list[new_node]
+
+      for neighbor in neighbors
+        next if visited.has_key?(neighbor)
+
+        visited[neighbor] = new_node
+
+        if neighbor == to_id
+          queue = []
+          break
+        else
+          queue.push(neighbor) if !queue.include?(neighbor)
+        end
+      end
+    end
+
+
+    return [] if !visited.has_key?(to_id)
+    Graph.path_to(visited, to_id)
+  end
+
+  def self.path_to(visited, to_id)
+    path = [to_id]
+    while visited[to_id]
+      previous = visited[to_id]
+      path.unshift(previous)
+      to_id = previous
+    end
+    path
   end
 
   def self.edge_to_adjacency_list(edge_list)

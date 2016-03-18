@@ -45,5 +45,53 @@ RSpec.describe Graph, type: :model do
         expect(Graph.breadth_first_path(given_from, given_to, given_edge_list)).to eq(expected)
       end
     end
+
+    describe "with more complex edge list" do
+      it "should return a longer path" do
+        given_edge_list = [
+          [:a, :b],
+          [:a, :c],
+          [:b, :c],
+          [:c, :d],
+          [:c, :e],
+          [:e, :f]]
+          given_from = :a
+          given_to = :f
+          expected = [:a, :c, :e, :f]
+
+          expect(Graph.breadth_first_path(given_from, given_to, given_edge_list)).to eq(expected)
+      end
+
+      it "should return a longer path" do
+        given_edge_list = [
+          [:a, :b],
+          [:a, :c],
+          [:b, :c],
+          [:c, :d],
+          [:e, :f]]
+          given_from = :a
+          given_to = :f
+          expected = []
+
+          expect(Graph.breadth_first_path(given_from, given_to, given_edge_list)).to eq(expected)
+      end
+    end
   end
 end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
