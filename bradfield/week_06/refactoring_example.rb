@@ -47,19 +47,12 @@ class CorrectAnswerBehavior
 
     if @is_getting_out_of_penalty_box
       puts "#{player_name} got out of penalty box"
-      puts 'Answer was correct!!!!'
-      self.player_gold_coins += 1
-      report_gold_coins()
-      winner = did_player_win()
-      rotate_current_player()
-      report_current_player()
-      return winner
     end
 
-    puts "Answer was correct!!!!"
+    puts 'Answer was correct!!!!'
     self.player_gold_coins += 1
-    report_gold_coins()
-    winner = did_player_win()
+    puts "#{player_name} now has #{player_gold_coins} Gold Coins."
+    winner = player_gold_coins != 6
     rotate_current_player()
     report_current_player()
     return winner
@@ -81,10 +74,6 @@ class CorrectAnswerBehavior
 
   private
 
-  def did_player_win
-    !(player_gold_coins == 6)
-  end
-
   def rotate_current_player
     @current_player_index += 1
     @current_player_index = 0 if @current_player_index == @players.length
@@ -92,10 +81,6 @@ class CorrectAnswerBehavior
 
   def report_current_player
     puts "Player is now #{player_name}"
-  end
-
-  def report_gold_coins
-    puts "#{player_name} now has #{player_gold_coins} Gold Coins."
   end
 
   def player_name
