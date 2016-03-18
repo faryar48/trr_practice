@@ -56,7 +56,7 @@ class CorrectAnswerBehavior
       return winner
     end
 
-    puts "Answer was corrent!!!!"
+    puts "Answer was correct!!!!"
     self.player_gold_coins += 1
     report_gold_coins()
     winner = did_player_win()
