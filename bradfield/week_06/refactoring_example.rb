@@ -36,14 +36,12 @@ class CorrectAnswerBehavior
         @purses[@current_player_index] += 1
         puts "#{@players[@current_player_index]} now has #{@purses[@current_player_index]} Gold Coins."
         winner = did_player_win()
-        @current_player_index += 1
-        @current_player_index = 0 if @current_player_index == @players.length
+        rotate_current_player()
         puts "Player is now #{@players[@current_player_index]}"
         winner
       else
         puts "#{@players[@current_player_index]} stays in penalty box"
-        @current_player_index += 1
-        @current_player_index = 0 if @current_player_index == @players.length
+        rotate_current_player()
         puts "Player is now #{@players[@current_player_index]}"
         true
       end
@@ -51,9 +49,8 @@ class CorrectAnswerBehavior
       puts "Answer was corrent!!!!"
       @purses[@current_player_index] += 1
       puts "#{@players[@current_player_index]} now has #{@purses[@current_player_index]} Gold Coins."
-      winner = did_player_win
-      @current_player_index += 1
-      @current_player_index = 0 if @current_player_index == @players.length
+      winner = did_player_win()
+      rotate_current_player()
       puts "Player is now #{@players[@current_player_index]}"
       return winner
     end
@@ -63,6 +60,11 @@ class CorrectAnswerBehavior
 
   def did_player_win
     !(@purses[@current_player_index] == 6)
+  end
+
+  def rotate_current_player
+    @current_player_index += 1
+    @current_player_index = 0 if @current_player_index == @players.length
   end
 
 # ------------------------------ REFACTORING END ------------------------------
