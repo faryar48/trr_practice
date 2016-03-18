@@ -25,10 +25,25 @@
 # This code is based on Trivia Game example used in Legacy Code Retreats
 # You can find it at https://github.com/jbrains/trivia
 
-# ------------------------------ REFACTORING START ------------------------------
 class CorrectAnswerBehavior
 
+  def initialize seed = nil
+    srand(seed) if seed
+    @players = %w[Alice Bob Cecil]
+    @purses = @players.map { rand(3) + 2 }
+    @in_penalty_box = @players.map { rand(2) == 0 }
+    @current_player_index = rand(@players.count)
+    @is_getting_out_of_penalty_box = player_in_penalty_box? && rand(2) == 0
+  end
+
   def was_correctly_answered
+
+    if player_in_penalty_box? && !@is_getting_out_of_penalty_box
+      puts "#{player_name} stays in penalty box"
+      rotate_current_player()
+      report_current_player()
+      return true
+    end
 
     if @is_getting_out_of_penalty_box
       puts "#{player_name} got out of penalty box"
@@ -39,13 +54,6 @@ class CorrectAnswerBehavior
       rotate_current_player()
       report_current_player()
       return winner
-    end
-
-    if @in_penalty_box[@current_player_index]
-      puts "#{player_name} stays in penalty box"
-      rotate_current_player()
-      report_current_player()
-      return true
     end
 
     puts "Answer was corrent!!!!"
@@ -65,6 +73,10 @@ class CorrectAnswerBehavior
 
   def player_gold_coins
     @purses[@current_player_index]
+  end
+
+  def player_in_penalty_box?
+    @in_penalty_box[@current_player_index]
   end
 
   private
@@ -88,19 +100,6 @@ class CorrectAnswerBehavior
 
   def player_name
     @players[@current_player_index]
-  end
-
-# ------------------------------ REFACTORING END ------------------------------
-
-  public
-
-  def initialize seed = nil
-    srand(seed) if seed
-    @players = %w[Alice Bob Cecil]
-    @purses = @players.map { rand(3) + 2 }
-    @in_penalty_box = @players.map { rand(2) == 0 }
-    @current_player_index = rand(@players.count)
-    @is_getting_out_of_penalty_box = @in_penalty_box[@current_player_index] && rand(2) == 0
   end
 end
 
