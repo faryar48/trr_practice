@@ -9,20 +9,19 @@ module Graph
     queue = [from_id]
     visited = {from_id => nil}
 
-    while !queue.empty?
-      new_node = queue.shift
-      neighbors = adjacency_list[new_node]
+    until queue.empty?
+      node = queue.shift
 
-      for neighbor in neighbors
+      for neighbor in adjacency_list[node]
         next if visited.has_key?(neighbor)
 
-        visited[neighbor] = new_node
+        visited[neighbor] = node
 
         if neighbor == to_id
           queue = []
           break
         else
-          queue.push(neighbor) if !queue.include?(neighbor)
+          queue.push(neighbor)
         end
       end
     end
