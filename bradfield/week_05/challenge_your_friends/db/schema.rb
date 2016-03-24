@@ -13,7 +13,30 @@
 
 ActiveRecord::Schema.define(version: 20160225233307) do
 
+  create_table "friendships", force: :cascade do |t|
+    t.integer  "from"
+    t.integer  "to"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "headings", force: :cascade do |t|
+    t.integer  "website_id"
+    t.integer  "level"
+    t.string   "value"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "personal_websites", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "users", force: :cascade do |t|
+    t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

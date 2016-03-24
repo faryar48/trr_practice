@@ -19,3 +19,5 @@ seed_tweets =
 seed_tweets.each do |tweet|
   Tweet.create!(tweet, without_protection: true)
 end
+
+
