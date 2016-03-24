@@ -1,0 +1,26 @@
+<div>hello world</div>
+
+<form>
+  <label>From User</label>
+  <select name='from_id'>
+    <% @users.each do |user| %>
+      <option value=<%= user.id %>><%= user.name %></option>
+    <% end %>
+  </select>
+
+  <label>To User</label>
+  <select name='to_id'>
+    <% @users.each do |user| %>
+      <option value=<%= user.id %>><%= user.name %></option>
+    <% end %>
+  </select>
+
+  <button type="submit">SUBMIT</button>
+
+
+
+  <h1>THIS IS YOUR PATH</h1>
+  <% @users_in_path.each do |user| %>
+    <h3><%= user.name %></h3>
+  <% end %>
+</form>
