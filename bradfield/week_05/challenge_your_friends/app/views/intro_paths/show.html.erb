@@ -4,23 +4,24 @@
   <label>From User</label>
   <select name='from_id'>
     <% @users.each do |user| %>
-      <option value=<%= user.id %>><%= user.name %></option>
+      <option <%= @from == user.id && "selected" %> value=<%= user.id %>><%= user.name %></option>
     <% end %>
   </select>
 
   <label>To User</label>
   <select name='to_id'>
     <% @users.each do |user| %>
-      <option value=<%= user.id %>><%= user.name %></option>
+      <option <%= @to == user.id && "selected" %> value=<%= user.id %>><%= user.name %></option>
     <% end %>
   </select>
 
   <button type="submit">SUBMIT</button>
 
-
-
-  <h1>THIS IS YOUR PATH</h1>
-  <% @users_in_path.each do |user| %>
-    <h3><%= user.name %></h3>
+  <h1>ALL PATHS</h1>
+  <% @paths.each do |path| %>
+    <% path.each do |id| %>
+      <h3><%= User.find(id).name %></h3>
+    <% end %>
+    <hr>
   <% end %>
 </form>

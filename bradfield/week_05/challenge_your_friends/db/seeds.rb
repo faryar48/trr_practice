@@ -39,6 +39,10 @@ users = [
   {
     id: 6,
     name: "Felicia"
+  },
+  {
+    id: 7,
+    name: "Gertrude"
   }
 ]
 
@@ -74,6 +78,11 @@ personal_websites = [
     id: 6,
     user_id: 6,
     name: "Felicia.com"
+  },
+  {
+    id: 7,
+    user_id: 7,
+    name: "Gertrude.com"
   }
 ]
 
@@ -100,8 +109,10 @@ friendship_list = [
   [2, 3],
   [3, 5],
   [3, 4],
-  [3, 6],
+  [4, 6],
   [5, 6],
+  [6, 7],
+  [1, 7],
 ]
 
 friendship_list.each do |(from, to)|

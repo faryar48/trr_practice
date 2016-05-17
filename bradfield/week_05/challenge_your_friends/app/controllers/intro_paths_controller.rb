@@ -3,13 +3,11 @@ class IntroPathsController < ApplicationController
   def show
     @users = User.all
 
-    from = params[:from_id].to_i
-    to = params[:to_id].to_i
+    @from = params[:from_id].try(:to_i) || @users.first.id
+    @to = params[:to_id].try(:to_i) || @users.second.id
 
     edge_list = Friendship.all.map { |f| [f.from, f.to]}
 
-    @path = Graph.breadth_first_path(from, to, edge_list)
-
-    @users_in_path = @path.map { |id| User.find(id) }
+    @paths = Graph.breadth_first_paths(@from, @to, edge_list).map { |path| path.map { |id| User.find(id) } }
   end
 end
